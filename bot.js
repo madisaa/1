@@ -73,7 +73,7 @@ client.on('ready', () => {
 });
          client.on('message', message => {
             if (message.content === 'هاي') {
-              message.channel.send('*هايات وشايات**');
+              message.channel.send('**هايات وشايات**');
               message.channel.sendFile("./photoshop.PNG");
                
 
@@ -122,6 +122,10 @@ client.on('ready', () => {
                
 
             }
+});
+client.on('ready', () => {
+     client.user.setActivity("-help",{type: 'WATCHING'})
+
 });
 
 client.login(process.env.BOT_TOKEN);
