@@ -28,44 +28,100 @@ client.user.setGame(`Nothing`,"http://twitch.tv/S-F")
   console.log('')
 });
 
-var AsciiTable = require('ascii-data-table').default
-client.on('message', message =>{
-
-    if(message.content == "-roles"){
-        var 
-        ros=message.guild.roles.size,
-        data = [['Rank', 'RoleName']]
-        for(let i =0;i<ros;i++){
-            if(message.guild.roles.array()[i].id !== message.guild.id){
-         data.push([i,`${message.guild.roles.filter(r => r.position == ros-i).map(r=>r.name)}`])
-        }}
-        let res = AsciiTable.table(data)
-
-        message.channel.send(`**\`\`\`xl\n${res}\`\`\`**`);
-    }
-});
+client.on("guildMemberAdd", member => {
+  member.createDM().then(function (channel) {
+  return channel.send(`:rose:  ولكم نورت السيرفر:rose: 
+:crown:اسم العضو  ${member}:crown:  
+انت العضو رقم ${member.guild.memberCount} `) 
+}).catch(console.error)
+})
 client.on('message', message => {
-     if (message.author.bot) return;
-    if (message.content.startsWith("رابط")) {
-        message.channel.createInvite({
-        thing: true,
-        maxUses: 1,
-        maxAge: 3600,
-    }).then(invite =>
-      message.author.sendMessage(invite.url)
-    )
-    const embed = new Discord.RichEmbed()
-        .setColor("RANDOM")
-          .setDescription(" تم أرسال الرابط برسالة خاصة ")
-           .setAuthor(client.user.username, client.user.avatarURL)
-                 .setAuthor(client.user.username, client.user.avatarURL)
-                .setFooter('طلب بواسطة: ' + message.author.tag)
+    if(message.channel.type === "dm") return;
+      if(message.content.startsWith ("$marry")) {
+      if(!message.channel.guild) return message.reply(' This command only for servers ')
+      var proposed = message.mentions.members.first()
 
-      message.channel.sendEmbed(embed).then(message => {message.delete(10000)})
-              const Embed11 = new Discord.RichEmbed()
-        .setColor("RANDOM")
-        
-    .setDescription(" مدة الرابط : ساعه  عدد استخدامات الرابط : 1 ")
-      message.author.sendEmbed(Embed11)
-    }
+      if(!message.mentions.members.first()) return message.reply('لازم تطلب ايد وحدة').catch(console.error);
+      if(message.mentions.users.size > 1) return message.reply('ولد ما يضبط لازم بنت تذكر لازم بنت الحلال').catch(console.error);
+       if(proposed === message.author) return message.reply(`**خنثى ؟ **`);
+        if(proposed === client.user) return message.reply(`** تبي تتزوجني؟ **`);
+              message.channel.send(`**${proposed} 
+ بدك تقبلي عرض الزواج من ${message.author}
+ العرض لمدة 10 ثانية 
+ اكتب موافقة او لا**`)
+
+const filter = m => m.content.startsWith("موافقة");
+message.channel.awaitMessages(filter, { max: 1, time: 15000, errors: ['time'] })
+.then(collected =>{ 
+    message.channel.send(`**${message.author} و ${proposed} الف الف مبروك انشاء الله تستمتعون بحياتكم الزوجية ويطول اعماركم ولا تنسون شهر العسل**`);
+})
+   .catch(collected => message.channel.send(`**السكوت علامة الرضا نقول قلللوش مبروك**`))
+
+   const filte = m => m.content.startsWith("لا");
+message.channel.awaitMessages(filte, { max: 1, time: 15000, errors: ['time'] })
+.then(collected =>{ 
+   message.channel.send(`**${message.author} تم رفض عرضك**`);
+})
+
+
+
+
+  }
+});
+client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}!`);
+});
+         client.on('message', message => {
+            if (message.content === 'هاي') {
+              message.channel.send('*هايات وشايات**');
+              message.channel.sendFile("./photoshop.PNG");
+               
+
+            }
+});
+client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}!`);
+});
+         client.on('message', message => {
+            if (message.content === '.') {
+              message.channel.send('**آطلق نقطة**');
+              message.channel.sendFile("./photoshop.PNG");
+               
+
+            }
+});
+client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}!`);
+});
+         client.on('message', message => {
+            if (message.content === 'ههههههه') {
+              message.channel.send('**دوم يارب**');
+              message.channel.sendFile("./photoshop.PNG");
+               
+
+            }
+});
+client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}!`);
+});
+         client.on('message', message => {
+            if (message.content === 'برب') {
+              message.channel.send('**تيت يحلو**');
+              message.channel.sendFile("./photoshop.PNG");
+               
+
+            }
+});
+client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}!`);
+});
+         client.on('message', message => {
+            if (message.content === 'باك') {
+              message.channel.send('**ولكم نورت يقلبي**');
+              message.channel.sendFile("./photoshop.PNG");
+               
+
+            }
+});
+
 client.login(process.env.BOT_TOKEN);
