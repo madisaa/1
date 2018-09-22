@@ -281,7 +281,7 @@ const Sra7a = [
     'صراحه  |  ما هي أمنياتك المُستقبلية؟‏',
 ]
   client.on('message', message => {
-if (message.content.startsWith('حط هنا الامر ')) {
+if (message.content.startsWith('صراحة ')) {
     if(!message.channel.guild) return message.reply('** This command only for servers **');
  var client= new Discord.RichEmbed()
  .setTitle("لعبة صراحة ..")
@@ -325,7 +325,7 @@ const cuttweet = [
 ]
  
  client.on('message', message => {
-   if (message.content.startsWith("حط الامر هنا")) {
+   if (message.content.startsWith("كت")) {
                 if(!message.channel.guild) return message.reply('** This command only for servers**');
   var embed = new Discord.RichEmbed()
   .setColor('RANDOM')
