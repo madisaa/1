@@ -925,7 +925,7 @@ client.on('guildMemberAdd', member => {
    //  stewart.send(`<@${member.user.id}> joined using invite code ${invite.code} from <@${inviter.id}>. Invite was used ${invite.uses} times since its creation.`);
   }); 
 });
-const adminprefix = "!";
+const adminprefix = ".";
 const devs = ['490076609215201282','468871643301675010'];
 client.on('message', message => {
   var argresult = message.content.split(` `).slice(1).join(' ');
