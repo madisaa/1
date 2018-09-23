@@ -709,7 +709,7 @@ var args = message.content.split(" ").slice(1);
   } //alpha codes
 });
 client.on('message', async message =>{
-  var prefix = "ت"; //alpha codes
+  var prefix = "."; //alpha codes
 if (message.author.omar) return;
 if (!message.content.startsWith(prefix)) return;
 if(!message.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
@@ -737,8 +737,9 @@ if(command === `كلم`) {
   }
 
 });
-const prefix = "."
-client.on('message', async msg => { 
+
+client.on('message', async msg => {
+const prefix = "." 
 	if (msg.author.bot) return undefined;
 	if (!msg.content.startsWith(prefix)) return undefined;
 	const args = msg.content.split(' ');
