@@ -277,7 +277,7 @@ if (message.content.startsWith(".kick")) {
     message.channel.send("تم أعطاء كيك الى : " + mention.tag);
 };
 });
-lient.on('message',async msg => {//Alpha Codes
+client.on('message',async msg => {//Alpha Codes
 //Alpha Codes//Alpha Codes//Alpha Codes//Alpha Codes//Alpha Codes
   var prefix = "-";//Alpha Codes
 //Alpha Codes
