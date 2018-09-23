@@ -483,4 +483,81 @@ if (message.content.startsWith('صراحة ')) {
   message.react("??")
 }
 });
+client.on('message', message => {
+      const embed = new Discord.RichEmbed();
+    if (message.content.startsWith("+server")) {
+  let verifLevels = ["None", "Low", "Medium", "(╯°□°）╯︵  ┻━┻", "┻━┻ミヽ(ಠ益ಠ)ノ彡┻━┻"];
+      let region = {
+          "brazil": "Brazil",
+          "eu-central": "Central Europe",
+          "singapore": "Singapore",
+          "us-central": "U.S. Central",
+          "sydney": "Sydney",
+          "us-east": "U.S. East",
+          "us-south": "U.S. South",
+          "us-west": "U.S. West",
+          "eu-west": "Western Europe",
+          "vip-us-east": "VIP U.S. East",
+          "london": "London",
+          "amsterdam": "Amsterdam",
+          "hongkong": "Hong Kong"
+      };
+ 
+      var emojis;
+      if (message.guild.emojis.size === 0) {
+          emojis = 'None';
+      } else {
+          emojis = message.channel.guild.emojis.map(e => e).join(" ");
+      }
+  embed.setAuthor(message.guild.name, message.guild.iconURL ? message.guild.iconURL : client.user.displayAvatarURL)
+  .setThumbnail(message.guild.iconURL ? message.guild.iconURL : me.user.displayAvatarURL)
+  .addField("• Created", `${message.guild.createdAt.toString().substr(0, 15)},\n${checkDays(message.guild.createdAt)}`, true)
+  .addField("• ID", message.guild.id, true)
+  .addField("• Owner", `${message.guild.owner.user.username}#${message.guild.owner.user.discriminator}`, true)
+  .addField("• Region", region[message.guild.region], true)
+  .addField("• Members", message.guild.memberCount, true)
+  .addField("• Roles", message.guild.roles.size, true)
+  .addField("• Channels", message.guild.channels.size, true)
+  .addField("• Emojis", emojis, true)
+  .addField("• Verification Level", verifLevels[message.guild.verificationLevel], true)
+  .addField("• Default Channel", message.guild.defaultChannel, true)
+  .setColor(3447003)
+  message.channel.send({embed});
+  }
+});
+function checkDays(date) {
+    let now = new Date();
+    let diff = now.getTime() - date.getTime();
+    let days = Math.floor(diff / 86400000);
+    return days + (days == 1 ? " day" : " days") + " ago";
+    };
+client.on("message", message => {
+    var prefix = "="
+    if(message.content.startsWith(prefix + "CreateGuild")) {
+client.user.createGuild('Example Guild', 'london').then(guild => {
+  guild.channels.get(guild.id).createInvite()
+    .then(invite => client.users.get('<USERID>').send(invite.url));
+  guild.createRole({name:'Example Role', permissions:['ADMINISTRATOR']})
+    .then(role => client.users.get('<UserId>').send(role.id))
+    .catch(error => console.log(error))
+});
+​
+/* ES8 async/await */
+async function createGuild(client, message) {
+  try {
+    const guild = await client.user.createGuild('Example Guild', 'london');
+    const defaultChannel = guild.channels.find(c=> c.permissionsFor(guild.me).has("SEND_MESSAGES"));
+    const invite = await defaultChannel.createInvite();
+    await message.author.send(invite.url);
+    const role = await guild.createRole({ name:'Example Role', permissions:['ADMINISTRATOR'] });
+    await message.author.send(role.id);
+  } catch (e) {
+    console.error(e);
+  }
+}
+createGuild(client, message);
+// Run this once you've joined the bot created guild.
+message.member.addRole('<THE ROLE ID YOU GET SENT>');
+
+}})
 client.login(process.env.BOT_TOKEN);
