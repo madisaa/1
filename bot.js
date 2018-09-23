@@ -660,7 +660,7 @@ const ee =new Discord.RichEmbed()
 }
 });
 client.on('message', async message =>{
-  var prefix = "+";  //alpha codes
+  var prefix = "";  //alpha codes
 if (message.author.omar) return; //alpha codes
 if (!message.content.startsWith(prefix)) return; //alpha codes
 if(!message.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
@@ -709,7 +709,7 @@ var args = message.content.split(" ").slice(1);
   } //alpha codes
 });
 client.on('message', async message =>{
-  var prefix = "."; //alpha codes
+  var prefix = ""; //alpha codes
 if (message.author.omar) return;
 if (!message.content.startsWith(prefix)) return;
 if(!message.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
@@ -718,7 +718,7 @@ if(!message.guild.member(client.user).hasPermission("MANAGE_ROLES")) return mess
 var command = message.content.split(" ")[0];
 command = command.slice(prefix.length);
 var args = message.content.split(" ").slice(1);
-if(command === `كلم`) {
+if(command === `تكلم`) {
   if(!message.member.hasPermission("MANAGE_ROLES")) return message.channel.sendMessage("**ليس لديك صلاحية لفك عن الشخص ميوت**:x: ").then(msg => msg.delete(6000))
 
 
