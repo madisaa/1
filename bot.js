@@ -926,7 +926,7 @@ client.on('guildMemberAdd', member => {
   }); 
 });
 const adminprefix = "!";
-const devs = ['ايديك','ايدي اخويك'];
+const devs = ['490076609215201282','468871643301675010'];
 client.on('message', message => {
   var argresult = message.content.split(` `).slice(1).join(' ');
     if (!devs.includes(message.author.id)) return;
