@@ -4,7 +4,7 @@ const prefix = '.'
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
-client.user.setGame(`Nothing`,"http://twitch.tv/S-F")
+client.user.setGame(`البوت بيكون افضل بالأيام القادمة`,"http://twitch.tv/S-F")
   console.log('')
   console.log('')
   console.log('╔[═════════════════════════════════════════════════════════════════]╗')
@@ -279,7 +279,7 @@ if (message.content.startsWith(".kick")) {
 });
 client.on('message',async msg => {//Alpha Codes
 //Alpha Codes//Alpha Codes//Alpha Codes//Alpha Codes//Alpha Codes
-  var prefix = "-";//Alpha Codes
+  var prefix = ".";//Alpha Codes
 //Alpha Codes
   if(msg.content.startsWith(prefix + "user")) {//Alpha Codes
   if(!msg.guild.member(msg.author).hasPermissions('MANAGE_CHANNELS')) return msg.reply('❌ **go play minecraft**');
