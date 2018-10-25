@@ -1,49 +1,31 @@
-//By Fares
-//جميع الحقوق محفوضة
 const Discord = require('discord.js');
-const Rocket = new Discord.Client();
-const jimp = require("jimp");// npm i jimp
-const package = ('package.json');
-const yt = require('ytdl-core');
-const prefix = ("!")
-const child_process = require("child_process");
-const ownerid = ('490076609215201282')
-const canvas = require("canvas");
-const fs = require('fs')
-const moment = require("moment");
+const client = new Discord.Client();
+const prefix = '$'
 
-
-console.log("By Fares");
-
-Rocket.on('ready', () => {//source
-    console.log('╔[════════════════════════════════════]╗');
-    console.log('')
-    console.log('            ╔[════════════]╗')
-    console.log('              Bot Is Online')
-    console.log('            ╚[════════════]╝')
-    console.log('')
-    console.log(`Logged in as ${Rocket.user.tag}!`);
-    console.log('')
-    console.log(`servers! [ " ${Rocket.guilds.size} " ]`);
-    console.log('')
-    console.log(`Users! [ " ${Rocket.users.size} " ]`);
-    console.log('')
-    console.log('╚[════════════════════════════════════]╝')
-  });
-
-client.on("message", message => {
-
-            if (message.content.startsWith(prefix + "bc")) {
-                         if (!message.member.hasPermission("ADMINISTRATOR"))  return;
-  let args = message.content.split(" ").slice(1);
-  var argresult = args.join(' '); 
-  message.guild.members.filter(m => m.presence.status !== 'all').forEach(m => {
- m.send(`${argresult}\n ${m}`);
-})
- message.channel.send(`\`${message.guild.members.filter(m => m.presence.status !== 'all').size}\` : عدد الاعضاء المستلمين`); 
- message.delete(); 
-};     
+client.on('ready', () => {
+  console.log(Logged in as ${client.user.tag}!);
+client.user.setGame(by:M7md 7san |$help,"http://twitch.tv/S-F%22)
+  console.log('')
+  console.log('')
+  console.log('╔[═════════════════════════════════════════════════════════════════]╗')
+  console.log([Start] ${new Date()});
+  console.log('╚[═════════════════════════════════════════════════════════════════]╝')
+  console.log('')
+  console.log('╔[════════════════════════════════════]╗');
+  console.log(Logged in as * [ " ${client.user.username} " ]);
+  console.log('')
+  console.log('Informations :')
+  console.log('')
+  console.log(servers! [ " ${client.guilds.size} " ]);
+  console.log(Users! [ " ${client.users.size} " ]);
+  console.log(channels! [ " ${client.channels.size} " ]);
+  console.log('╚[════════════════════════════════════]╝')
+  console.log('')
+  console.log('╔[════════════]╗')
+  console.log(' Bot Is Online')
+  console.log('╚[════════════]╝')
+  console.log('')
+  console.log('')
 });
 
-
-Rocket.login(process.env.BOT_TOKEN);
+client.login(process.env.BOT_TOKEN);
