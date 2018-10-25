@@ -1,10 +1,10 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const prefix = '$'
+const prefix = '*'
 
 client.on('ready', () => {
   console.log(Logged in as ${client.user.tag}!);
-client.user.setGame(by:M7md 7san |$help,"http://twitch.tv/S-F%22)
+client.user.setGame(Nothing,"http://twitch.tv/S-F%22)
   console.log('')
   console.log('')
   console.log('╔[═════════════════════════════════════════════════════════════════]╗')
