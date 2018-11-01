@@ -1,68 +1,38 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const prefix = '.'
-
-client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
-client.user.setGame(`Nothing`,"")
-  console.log('')
-  console.log('')
-  console.log('╔[═════════════════════════════════════════════════════════════════]╗')
-  console.log(`[Start] ${new Date()}`);
-  console.log('╚[═════════════════════════════════════════════════════════════════]╝')
-  console.log('')
-  console.log('╔[════════════════════════════════════]╗');
-  console.log(`Logged in as * [ " ${client.user.username} " ]`);
-  console.log('')
-  console.log('Informations :')
-  console.log('')
-  console.log(`servers! [ " ${client.guilds.size} " ]`);
-  console.log(`Users! [ " ${client.users.size} " ]`);
-  console.log(`channels! [ " ${client.channels.size} " ]`);
-  console.log('╚[════════════════════════════════════]╝')
-  console.log('')
-  console.log('╔[════════════]╗')
-  console.log(' Bot Is Online')
-  console.log('╚[════════════]╝')
-  console.log('')
-  console.log('')
-});
+const prefix = "-";
+const devs = ["336614900329611264" , "500104249275973632"];
+const adminprefix = ["-"];
 client.on('message', message => {
-var prefix = "!";
- 
-  if (!message.content.startsWith(prefix)) return;
-  var args = message.content.split(' ').slice(1);
-  var argresult = args.join(' ');
-  if (message.author.id == '490076609215201282' ) return;
- 
-if (message.content.startsWith(prefix + 'ply')) {
-  client.user.setGame(argresult);
-    message.channel.sendMessage(`**${argresult}** : تم تغيير الحالة`)
-} else
- 
-if (message.content.startsWith(prefix + 'st')) {
-  client.user.setGame(argresult, "https://www.twitch.tv/sytra_ayman");
-    message.channel.sendMessage(`**${argresult}** :تم تغيير الحالة الى ستريمنج`)
-} else
- 
-if (message.content.startsWith(prefix + 'wt')) {
-client.user.setActivity(argresult, {type:'WATCHING'});
-    message.channel.sendMessage(`**✅  : ${argresult}**`)
-} else 
-if (message.content.startsWith(prefix + 'ls')) {
-client.user.setActivity(argresult, {type:'LISTENING'});
-    message.channel.sendMessage(`**✅  : ${argresult}**`)
-} else 
+    var argresult = message.content.split(` `).slice(1).join(' ');
+      if (!devs.includes(message.author.id)) return;
 
-if (message.content.startsWith(prefix + 'nm')) {
+  if (message.content.startsWith(adminprefix + 'ply')) {
+    client.user.setGame(argresult);
+      message.channel.send(`**✅   ${argresult}**`)
+  } else
+     if (message.content === (adminprefix + "leave")) {
+    message.guild.leave();
+  } else
+  if (message.content.startsWith(adminprefix + 'wt')) {
+  client.user.setActivity(argresult, {type:'WATCHING'});
+      message.channel.send(`**✅   ${argresult}**`)
+  } else
+  if (message.content.startsWith(adminprefix + 'ls')) {
+  client.user.setActivity(argresult , {type:'LISTENING'});
+      message.channel.send(`**✅   ${argresult}**`)
+  } else
+  if (message.content.startsWith(adminprefix + 'st')) {
+    client.user.setGame(argresult, "https://www.twitch.tv/idk");
+      message.channel.send(`**✅**`)
+  }
+  if (message.content.startsWith(adminprefix + 'setname')) {
   client.user.setUsername(argresult).then
-      message.channel.sendMessage(`**${argresult}** : تم تغير الأسم`)
-  return message.reply("**لا تستطيع تغير الأسم الا بعد ساعتين**");
+      message.channel.send(`Changing The Name To ..**${argresult}** `)
 } else
-
-if (message.content.startsWith(prefix + 'av')) {
+if (message.content.startsWith(adminprefix + 'setavatar')) {
   client.user.setAvatar(argresult);
-    message.channel.sendMessage(`**${argresult}** : تم تغير صورة البوت`);
+    message.channel.send(`Changing The Avatar To :**${argresult}** `);
 }
 });
 client.login(process.env.BOT_TOKEN);
