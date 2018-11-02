@@ -28,5 +28,10 @@ client.user.setGame(`Nothing`,"http://twitch.tv/S-F")
   console.log('')
 });
 
-
+client.on("ready", () => {
+  function blue() {
+    client.guilds.get('id server').roles.find("name", "new role").setColor("RANDOM");
+  };
+  setInterval(blue, 10000);
+});
 client.login(process.env.BOT_TOKEN);
