@@ -28,7 +28,7 @@ client.user.setGame(``,"http://twitch.tv/S-F")
   console.log('')
 });
 client.on('message' , message => {
-  var prefix = "?";
+  var prefix = "#";
   if(message.author.bot) return;
   if(message.content.startsWith(prefix + "ping")) {
  message.channel.send('Pong...').then((msg) => {
@@ -36,6 +36,23 @@ client.on('message' , message => {
  })
   }  
  });
+client.on("message", message => {
+  if (message.content === 'برب') {
+      message.channel.send('تيت');
+  }
+});
+
+client.on("message", message => {
+  if (message.content === 'باك') {
+      message.channel.send('ولكمء');
+  }
+});
+
+client.on("message", message => {
+  if (message.content === 'السلام عليكم') {
+      message.channel.send('وعليكم السلام ورحمة الله وبركاته');
+  }
+});
 client.on('message', message => {
 
     if (message.content.startsWith("رابط")) {
