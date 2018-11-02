@@ -229,4 +229,70 @@ client.on("message", message => {
         }
     }
 });
+client.on("message", message => {
+    if (message.author.bot) return;
+   
+    let command = message.content.split(" ")[0];
+   
+    if (command === "!mute") {
+          if (!message.member.hasPermission('MANAGE_ROLES')) return message.reply("** You Have no Permission 'Manage Roles' **").catch(console.error);
+    let user = message.mentions.users.first();
+    let muteRole = client.guilds.get(message.guild.id).roles.find('name', 'Muted');
+    if (!muteRole) return message.reply("** There is no Mute Role 'Muted' **").catch(console.error);
+    if (message.mentions.users.size < 1) return message.reply('** Mention a User**').catch(console.error);
+   
+    const embed = new Discord.RichEmbed()
+      .setColor(0x00AE86)
+      .setTimestamp()
+      .addField('Usage:', '!mute')
+      .addField('Muted:', `${user.username}#${user.discriminator} (${user.id})`)
+      .addField('By:', `${message.author.username}#${message.author.discriminator}`)
+     
+     if (!message.guild.member(client.user).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return message.reply('** You Have no Permission Manage Roles **').catch(console.error);
+   
+    if (message.guild.member(user).roles.has(muteRole.id)) {
+  return message.reply("**:white_check_mark: .. Member Has been Muted**").catch(console.error);
+  } else {
+      message.guild.member(user).addRole(muteRole).then(() => {
+  return message.reply("**:white_check_mark: .. Member Has Been Muted**").catch(console.error);
+  });
+    }
+ 
+  };
+ 
+});
+ 
+client.on("message", message => {
+    if (message.author.bot) return;
+   
+    let command = message.content.split(" ")[0];
+   
+    if (command === "!unmute") {
+          if (!message.member.hasPermission('MANAGE_ROLES')) return message.reply("** You Do Not have 'Manage Roles' Permission **").catch(console.error);
+    let user = message.mentions.users.first();
+    let muteRole = client.guilds.get(message.guild.id).roles.find('name', 'Muted');
+    if (!muteRole) return message.reply("** You Do Not have 'Muted' Role **").catch(console.error);
+    if (message.mentions.users.size < 1) return message.reply('** Mention a User**').catch(console.error);
+    const embed = new Discord.RichEmbed()
+      .setColor(0x00AE86)
+      .setTimestamp()
+      .addField('Usage:', '!unmute')
+      .addField('Unmuted:', `${user.username}#${user.discriminator} (${user.id})`)
+      .addField('By:', `${message.author.username}#${message.author.discriminator}`)
+ 
+    if (!message.guild.member(client.user).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return message.reply('** No Manage Roles Permission **').catch(console.error);
+ 
+    if (message.guild.member(user).removeRole(muteRole.id)) {
+  return message.reply("**:white_check_mark: .. The User has been Unmuted **").catch(console.error);
+  } else {
+      message.guild.member(user).removeRole(muteRole).then(() => {
+  return message.reply("**:white_check_mark: .. The User has been Unmuted **").catch(console.error);
+  });
+    }
+ 
+  };
+ 
+
+    });
+
 client.login(process.env.BOT_TOKEN);
