@@ -182,117 +182,120 @@ client.on('message', function(msg) {
       msg.channel.send({embed:embed});
     }
 });
-client.on("message", message => {
-    var prefix = "-";
-    var args = message.content.split(' ').slice(1);
-    var msg = message.content.toLowerCase();
-    if( !message.guild ) return;
-    if( !msg.startsWith( prefix + 'role' ) ) return;
-    if(!message.member.hasPermission('MANAGE_ROLES')) return message.channel.send(' **__You Dont Have Permissions__**');
-    if( msg.toLowerCase().startsWith( prefix + 'roleremove' ) ){
-        if( !args[0] ) return message.reply( '**:x: Mention User**' );
-        if( !args[1] ) return message.reply( '**:x: Write Name Of Role To Remove it From The User**' );
-        var role = msg.split(' ').slice(2).join(" ").toLowerCase();
-        var role1 = message.guild.roles.filter( r=>r.name.toLowerCase().indexOf(role)>-1 ).first();
-        if( !role1 ) return message.reply( '**:x: Mention Role To Remove it From The User**' );if( message.mentions.members.first() ){
-            message.mentions.members.first().removeRole( role1 );
-            return message.reply('**:white_check_mark: Success Removed Role [ '+role1.name+' ] From [ '+args[0]+' ]**');
-        }
-        if( args[0].toLowerCase() == "all" ){
-            message.guild.members.forEach(m=>m.removeRole( role1 ))
-            return  message.reply('**:white_check_mark: Succes Removed Rank [ '+role1.name+' ]  From All**');
-        } else if( args[0].toLowerCase() == "bots" ){
-            message.guild.members.filter(m=>m.user.bot).forEach(m=>m.removeRole(role1))
-            return  message.reply('**:white_check_mark: Succes Removed Rank [ '+role1.name+' ] From All Bots**');
-        } else if( args[0].toLowerCase() == "humans" ){
-            message.guild.members.filter(m=>!m.user.bot).forEach(m=>m.removeRole(role1))
-            return  message.reply('**:white_check_mark: Succes Removed Rank [ '+role1.name+' ] From All Humans**');
-        }  
-    } else {
-        if( !args[0] ) return message.reply( '**:x: Mention User**' );
-        if( !args[1] ) return message.reply( '**:x: Write Name Of Role To Give It To User**' );
-        var role = msg.split(' ').slice(2).join(" ").toLowerCase();
-        var role1 = message.guild.roles.filter( r=>r.name.toLowerCase().indexOf(role)>-1 ).first();
-        if( !role1 ) return message.reply( '**:x: Write Name Of Role To Give It To User**' );if( message.mentions.members.first() ){
-            message.mentions.members.first().addRole( role1 );
-            return message.reply('**:white_check_mark:Success Gived Rank [ '+role1.name+' ] To [ '+args[0]+' ]**');
-        }
-        if( args[0].toLowerCase() == "all" ){
-            message.guild.members.forEach(m=>m.addRole( role1 ))
-            return  message.reply('**:white_check_mark: Success Gived All Rank [ '+role1.name+' ]**');
-        } else if( args[0].toLowerCase() == "bots" ){
-            message.guild.members.filter(m=>m.user.bot).forEach(m=>m.addRole(role1))
-            return  message.reply('**:white_check_mark: Success Gived All Bots Rank [ '+role1.name+' ] **');
-        } else if( args[0].toLowerCase() == "humans" ){
-            message.guild.members.filter(m=>!m.user.bot).forEach(m=>m.addRole(role1))
-            return  message.reply('**:white_check_mark: Success Gived All Humans Rank [ '+role1.name+' ]**');
-        }
-    }
-});
-client.on("message", message => {
-    if (message.author.bot) return;
-   
-    let command = message.content.split(" ")[0];
-   
-    if (command === "!mute") {
-          if (!message.member.hasPermission('MANAGE_ROLES')) return message.reply("** You Have no Permission 'Manage Roles' **").catch(console.error);
-    let user = message.mentions.users.first();
-    let muteRole = client.guilds.get(message.guild.id).roles.find('name', 'Muted');
-    if (!muteRole) return message.reply("** There is no Mute Role 'Muted' **").catch(console.error);
-    if (message.mentions.users.size < 1) return message.reply('** Mention a User**').catch(console.error);
-   
-    const embed = new Discord.RichEmbed()
-      .setColor(0x00AE86)
-      .setTimestamp()
-      .addField('Usage:', '!mute')
-      .addField('Muted:', `${user.username}#${user.discriminator} (${user.id})`)
-      .addField('By:', `${message.author.username}#${message.author.discriminator}`)
-     
-     if (!message.guild.member(client.user).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return message.reply('** You Have no Permission Manage Roles **').catch(console.error);
-   
-    if (message.guild.member(user).roles.has(muteRole.id)) {
-  return message.reply("**:white_check_mark: .. Member Has been Muted**").catch(console.error);
-  } else {
-      message.guild.member(user).addRole(muteRole).then(() => {
-  return message.reply("**:white_check_mark: .. Member Has Been Muted**").catch(console.error);
-  });
-    }
- 
-  };
- 
-});
- 
-client.on("message", message => {
-    if (message.author.bot) return;
-   
-    let command = message.content.split(" ")[0];
-   
-    if (command === "!unmute") {
-          if (!message.member.hasPermission('MANAGE_ROLES')) return message.reply("** You Do Not have 'Manage Roles' Permission **").catch(console.error);
-    let user = message.mentions.users.first();
-    let muteRole = client.guilds.get(message.guild.id).roles.find('name', 'Muted');
-    if (!muteRole) return message.reply("** You Do Not have 'Muted' Role **").catch(console.error);
-    if (message.mentions.users.size < 1) return message.reply('** Mention a User**').catch(console.error);
-    const embed = new Discord.RichEmbed()
-      .setColor(0x00AE86)
-      .setTimestamp()
-      .addField('Usage:', '!unmute')
-      .addField('Unmuted:', `${user.username}#${user.discriminator} (${user.id})`)
-      .addField('By:', `${message.author.username}#${message.author.discriminator}`)
- 
-    if (!message.guild.member(client.user).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return message.reply('** No Manage Roles Permission **').catch(console.error);
- 
-    if (message.guild.member(user).removeRole(muteRole.id)) {
-  return message.reply("**:white_check_mark: .. The User has been Unmuted **").catch(console.error);
-  } else {
-      message.guild.member(user).removeRole(muteRole).then(() => {
-  return message.reply("**:white_check_mark: .. The User has been Unmuted **").catch(console.error);
-  });
-    }
- 
-  };
- 
 
+ client.on('message', message => {
+    let args = message.content.split(' ').slice(1);
+    if(message.content.startsWith(prefix + 'role')) {
+        let member = message.mentions.users.first();
+        let role = args.join(' ').replace(member, '').replace(args[0], '').replace(' ', '');
+        console.log(role);
+        if(member) {
+              if(role.startsWith('-')) {
+                let roleRe = args.join(' ').replace(member, '').replace(args[0], '').replace('-', '').replace(' ', '');
+                console.log(roleRe);
+                let role1 = message.guild.roles.find('name', roleRe);
+                console.log(`hi`);
+const ee =new Discord.RichEmbed()
+ .setDescription('**:x: I can’t find the role.**')
+ .setFooter('Requested By '+message.author.username,message.author.avatarURL)
+        if(!role1) return message.channel.send(ee);                message.guild.member(member).removeRole(role1.id);
+                
+                     const e = new Discord.RichEmbed()
+                     
+                 .setDescription(':white_check_mark:** Changed Roles For **'+member+'**,** '+'**'+'-'+role1.name+'**')
+                .setFooter('Requested By '+message.author.username,message.author.avatarURL)
+                .setColor('BLACK')
+                 message.channel.send(e)
+            } else if(!role.startsWith('-')) {
+                let roleRe = args.join(' ').replace(member, '').replace(args[0], '').replace('-', '').replace(' ', '');
+                let role1 = message.guild.roles.find('name', roleRe);
+const ee =new Discord.RichEmbed()
+ .setDescription('**:x: I can’t find the role.**')
+ .setFooter('Requested By : '+message.author.username,message.author.avatarURL)
+        if(!role1) return message.channel.send(ee);                message.guild.member(member).addRole(role1);
+                const e = new Discord.RichEmbed()
+                
+                .setDescription(':white_check_mark:** Changed Roles For **'+member+'**,** '+'**'+'+'+role1.name+'**')
+                .setFooter('Requested By : '+message.author.username,message.author.avatarURL)
+                .setColor('BLACK')
+                 message.channel.send(e)
+            } else {
+                message.reply(`يجب عليك كتابة اسم الرتبة`);
+            } 
+        }
+ else if(args[0] == 'all') {
+  if(role.startsWith('-')) { 
+       let roleRe = args.join(' ').replace(member, '').replace(args[0], '').replace('-', '').replace(' ', '');
+         let role1 = message.guild.roles.find('name', roleRe);
+                   message.channel.send(`الرجاء الانتظار حتى يتم الانتهاء من الامر`).then(msg =>{
+           message.guild.members.forEach(m => {
+            message.guild.member(m).removeRole(role1.id);
+        });
+         msg.edit(`** <a:like:472979723358699520>  Done...\n**` +role1.name+`** Has Taken From __${message.guild.members.size}__ Member**`);
     });
+  }
+    if(role) {
+    let role1 = message.guild.roles.find('name', role);
+    if(!role1) return;
+    message.channel.send(`الرجاء الانتظار حتى يتم الانتهاء من الامر`).then(msg => {
+        message.guild.members.forEach(m => {
+            message.guild.member(m).addRole(role1);
+        });
+        msg.edit(`** <a:like:472979723358699520>  Done...\n**` +  role1.name+`** Has Given To __${message.guild.members.size}__ Members **`);
+    });
+}
+} else if(args[0] == 'humans') {
+     if(role.startsWith('-')) { 
+       let roleRe = args.join(' ').replace(member, '').replace(args[0], '').replace('-', '').replace(' ', '');
+         let role1 = message.guild.roles.find('name', roleRe);
+                   message.channel.send(`الرجاء الانتظار حتى يتم الانتهاء من الامر`).then(msg =>{
+           message.guild.members.forEach(m => {
+            message.guild.member(m).removeRole(role1.id);
+        });
+         msg.edit(`** <a:like:472979723358699520>  Done...\n**` +role1.name+`** Has Taken From __${message.guild.members.size}__ Member**`);
+    });
+  }
+
+    if(role) {
+        let role1 = message.guild.roles.find('name', role);
+
+ const ee =new Discord.RichEmbed()
+ .setDescription('I Cann’t Find This Role')
+ .setFooter('Requested By : '+message.author.username,message.author.avatarURL)
+        if(!role1) return message.channel.send(ee);
+        message.channel.send(`الرجاء الانتظار حتى يتم الانتهاء من الامر`).then(msg => {
+            message.guild.members.filter(m =>m.user.bot == false).forEach(m => {
+                message.guild.member(m).addRole(role1);
+            });
+        msg.edit(`** <a:like:472979723358699520>  Done...**`);
+        });
+    }
+} else if(args[0] == 'bots') {
+     if(role.startsWith('-')) { 
+       let roleRe = args.join(' ').replace(member, '').replace(args[0], '').replace('-', '').replace(' ', '');
+         let role1 = message.guild.roles.find('name', roleRe);
+                   message.channel.send(`الرجاء الانتظار حتى يتم الانتهاء من الامر`).then(msg =>{
+           message.guild.members.forEach(m => {
+            message.guild.member(m).removeRole(role1.id);
+        });
+         msg.edit(`** <a:like:472979723358699520>  Done...**`);
+    });
+  }
+    if(role) {
+        let role1 = message.guild.roles.find('name', role);
+       const ee =new Discord.RichEmbed()
+ .setDescription('I Cann’t Find This Role')
+ .setFooter('Requested By : '+message.author.username,message.author.avatarURL)
+        if(!role1) return message.channel.send(ee);
+        message.channel.send(`الرجاء الانتظار حتى يتم الانتهاء من الامر`).then(msg => {
+            message.guild.members.filter(m =>m.user.bot == true).forEach(m => {
+                message.guild.member(m).addRole(role1);
+            });
+        msg.edit(`** <a:like:472979723358699520>  Done...\n**` +role1.name+`** Has Given To __${message.guild.members.size}__ Member**`);
+});
+}
+}
+}
+});
 
 client.login(process.env.BOT_TOKEN);
